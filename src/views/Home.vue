@@ -1,12 +1,13 @@
 <template>
     <div class="container-fluid home">
         <div class="row">
-            <div class="col container-game text-center">
+            <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 container-game text-center">
                 <div class="title">
                     <img alt="logo" src="../assets/logo_without_text.svg" width="64">
                     <h1>GeoQuizz</h1>
                 </div>
                 <div class="start-game">
+                    <search-bar-serie></search-bar-serie>
                     <b-button variant="primary">Lancer une partie !</b-button>
                 </div>
             </div>
@@ -16,9 +17,10 @@
 
 <script>
 
+    import SearchBarSerie from "../components/Home/SearchBarSerie";
     export default {
         name: 'Home',
-        components: {}
+        components: {SearchBarSerie}
     }
 </script>
 
@@ -42,7 +44,7 @@
                 vertical-align: top;
             }
 
-            .start-game {
+            .start-game, .btn {
                 margin-top: 1em;
             }
         }
