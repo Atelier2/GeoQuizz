@@ -38,7 +38,7 @@
             }
 
             img {
-                margin-right: 2%;
+                margin-right: 1%;
                 vertical-align: top;
             }
 
