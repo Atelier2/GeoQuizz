@@ -1,15 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Leaderboard from "../views/Leaderboard";
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/Home',
+    path: '/home',
     name: 'Home',
     alias: '/',
     component: Home
+  },
+  {
+    path: '/leaderboard',
+    name: "Leaderboard",
+    component: Leaderboard
   },
   {
     path: '*',
