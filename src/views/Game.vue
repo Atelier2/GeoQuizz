@@ -1,23 +1,35 @@
 <template>
-    <div class="container-fluid game">
-        <div class="row">
-            <div class="col-lg-10 offset-lg-2 col-md-10 offset-md-2">
+    <div class="game">
+                <GameDetails class="gameDetails"></GameDetails>
                 <GameMap></GameMap>
-            </div>
-        </div>
     </div>
 </template>
 
 <script>
     import GameMap from "../components/Game/GameMap";
+    import GameDetails from "../components/Game/GameDetails";
     export default {
         name: "Game",
-        components: {GameMap}
+        components: {GameDetails, GameMap}
     }
 </script>
 
 <style scoped lang="scss">
-    .row{
-        height: 100vh;
+    @media (max-width: 991.98px) {
+        .game{
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+    }
+    @media (min-width: 991.98px) {
+        .game{
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+    }
+    .gameDetails{
+        flex-basis: 15%;
     }
 </style>
