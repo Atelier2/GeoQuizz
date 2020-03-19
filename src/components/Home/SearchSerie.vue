@@ -17,6 +17,12 @@
             }
         },
         mounted() {
+            this.$axios.get('series', { headers: {'Access-Control-Allow-Origin': '*'} } ).then((response) => {
+                console.log("Chargement des séries réussie");
+                console.log(response.data)
+            }).catch((e) => {
+                console.log("Erreur lors du chargement des series")
+            })
             this.$bus.$on('selectedSerieChange',(value) => {
                 this.selectedSerie = value;
             })
