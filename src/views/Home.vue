@@ -7,8 +7,7 @@
                     <h1>GeoQuizz</h1>
                 </div>
                 <div class="start-game">
-                    <search-bar-serie></search-bar-serie>
-                    <b-button variant="primary">Lancer une partie !</b-button>
+                    <search-serie></search-serie>
                 </div>
             </div>
         </div>
@@ -17,10 +16,10 @@
 
 <script>
 
-    import SearchBarSerie from "../components/Home/SearchBarSerie";
+    import SearchSerie from "../components/Home/SearchSerie";
     export default {
         name: 'Home',
-        components: {SearchBarSerie}
+        components: {SearchSerie},
     }
 </script>
 
@@ -44,7 +43,7 @@
                 vertical-align: top;
             }
 
-            .start-game, .btn {
+            .start-game {
                 margin-top: 1em;
             }
         }
