@@ -1,12 +1,20 @@
 <template>
     <div>
+    <div v-show="step === 1">
         <search-bar-serie id="searchbar"></search-bar-serie>
 
         <div v-if="selectedSerie" class="infoSeries">
             <p>Identifiant de la série : {{ selectedSerie.id }}</p><p> Ville : {{ selectedSerie.city }}</p><p> Nombre de photos : {{ selectedSerie.nb_pictures }}</p><p> Date de dernière mise à jour : {{ selectedSerie.updated_at }}</p>
         </div>
 
-        <b-button variant="primary" @click="startGame">Lancer une partie !</b-button>
+        <b-button variant="primary" @click="step++" :disabled="!selectedSerie">Choisir cette série !</b-button>
+    </div>
+        <div v-show="step === 2">
+            <div>
+                <b-form-input type="text" v-model="pseudo" placeholder="Votre pseudo"></b-form-input>
+            </div>
+            <b-button variant="primary" @click="startGame" :disabled="!pseudo">Démarrer la partie !</b-button>
+        </div>
     </div>
 </template>
 
@@ -18,7 +26,9 @@
         components: {SearchBarSerie},
         data(){
             return{
-                selectedSerie:null
+                selectedSerie:null,
+                pseudo:'',
+                step:1
             }
         },
         mounted() {
@@ -28,7 +38,13 @@
         },
         methods:{
             startGame(){
-                console.log(this.selectedSerie)
+                this.$axios.post('games', {
+
+                }).then((response) => {
+                    console.log("Création de la partie réussie");
+                }).catch((e) => {
+                    console.log("Erreur lors de la création de la partie:")
+                })
             }
         }
     }
