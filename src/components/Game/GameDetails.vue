@@ -6,7 +6,8 @@
 
 <script>
     export default {
-        name: "GameDetails"
+        name: "GameDetails",
+        props:["Pseudo","Ville","nbpictures"]
     }
 </script>
 

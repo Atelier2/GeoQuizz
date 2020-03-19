@@ -17,5 +17,14 @@ Vue.prototype.$axios = axios.create({
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  methods:{
+    makeToast(errorMsg) {
+      this.$root.$bvToast.toast(errorMsg, {
+        title: "⚠ Erreur !",
+        variant: "danger",
+        noCloseButton: true
+      })
+    }
+  },
 }).$mount('#app')

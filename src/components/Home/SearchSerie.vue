@@ -11,9 +11,9 @@
     </div>
         <div v-show="step === 2">
             <div>
-                <b-form-input type="text" v-model="pseudo" placeholder="Votre pseudo"></b-form-input>
+                <b-form-input type="text" v-model="username" placeholder="Votre pseudo"></b-form-input>
             </div>
-            <b-button variant="primary" @click="startGame" :disabled="!pseudo">Démarrer la partie !</b-button>
+            <b-button variant="primary" @click="startGame" :disabled="!username">Démarrer la partie !</b-button>
         </div>
     </div>
 </template>
@@ -27,7 +27,7 @@
         data(){
             return{
                 selectedSerie:null,
-                pseudo:'',
+                username:'',
                 step:1
             }
         },
@@ -39,11 +39,14 @@
         methods:{
             startGame(){
                 this.$axios.post('games', {
-
+                    "username":this.username,
+                    "id_series":this.selectedSerie.id
                 }).then((response) => {
                     console.log("Création de la partie réussie");
+                    console.log(response.data)
                 }).catch((e) => {
-                    console.log("Erreur lors de la création de la partie:")
+                    console.log("Erreur lors de la création de la partie: "+e.response.data.message)
+                    this.$root.makeToast(e.response.data.message)
                 })
             }
         }
