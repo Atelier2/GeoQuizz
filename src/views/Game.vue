@@ -1,5 +1,11 @@
 <template>
-    <GameMap></GameMap>
+    <div class="container-fluid game">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-2 col-md-10 offset-md-2">
+                <GameMap></GameMap>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -10,6 +16,8 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .row{
+        height: 100vh;
+    }
 </style>

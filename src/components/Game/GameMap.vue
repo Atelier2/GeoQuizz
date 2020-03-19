@@ -1,8 +1,6 @@
 <template>
-    <l-map id="map" ref="map" :zoom="zoom" :minZoom="zoom" :center="center">
-        <l-tile-layer
-                :url="url"
-        />
+    <l-map id="map" ref="map" :zoom="zoom" :maxZoom="zoom" :minZoom="zoom" :center="center">
+        <l-tile-layer :url="url"/>
     </l-map>
 </template>
 
@@ -21,20 +19,16 @@
         data(){
             return{
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                zoom: 10,
+                zoom: 12,
                 center: latLng(47.41322, -1.219482)
             }
-        },
-        mounted() {
-            this.$nextTick(() => {
-                this.$refs.map.mapObject.dragging.disable();
-            });
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     #map{
-        height: 100vh;
+        height: 100%;
+        width: 100%;
     }
 </style>

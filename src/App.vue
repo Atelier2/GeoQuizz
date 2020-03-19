@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <navbar></navbar>
+        <navbar v-if="this.$route.name !== 'Game'"></navbar>
         <router-view/>
     </div>
 </template>
