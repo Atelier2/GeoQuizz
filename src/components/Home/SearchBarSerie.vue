@@ -1,23 +1,31 @@
 <template>
-    <v-select :options="series" placeholder="Choisissez une série" @input="selectedSerieChange" />
+    <v-select :options="series" label="city" placeholder="Choisissez une série" @input="selectedSerieChange" />
 </template>
 
 <script>
     import vSelect from 'vue-select'
     export default {
         name: "SearchBarSerie",
-        props:["selectedSerie"],
         components:{
             vSelect
         },
         data(){
             return{
-                series:["test","test1","test2"]
+                selectedSerie:null,
+                series:[]
             }
         },
+        mounted() {
+            this.$axios.get('series', ).then((response) => {
+                this.series = response.data.series
+                console.log("Chargement des séries réussie");
+            }).catch((e) => {
+                console.log("Erreur lors du chargement des series")
+            })
+        },
         methods:{
-            selectedSerieChange(value){
-                this.$bus.$emit('selectedSerieChange', value);
+            selectedSerieChange(serie){
+                this.$bus.$emit('selectedSerieChange', serie);
             }
         }
     }
