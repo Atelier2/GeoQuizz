@@ -1,33 +1,15 @@
 <template>
     <div class="gameDetails">
-        ok
+        <p>Ville: {{ serie.city }}</p>
+        <p>Progression :{{ this.$store.state.progressGame.picturesPlaced }} / {{ serie.nb_pictures }}</p>
+        <p>Score : {{ this.$store.state.progressGame.score }}</p>
     </div>
 </template>
 
 <script>
     export default {
         name: "GameDetails",
-        data(){
-            return{
-                serie:null
-            }
-        },
-        beforeMount() {
-            this.getSerieDetails();
-        },
-        methods:{
-            getSerieDetails(){
-                this.$axios.get('series/'+ this.$store.state.game.id_series).then((response) => {
-                    this.serie = response.data.series
-                    console.log("Chargement de la série réussie");
-                }).catch((e) => {
-                    console.log("Erreur lors du chargement de la série");
-                    this.$root.makeToast(e.response.data.message);
-                    this.$store.commit("resetGame");
-                    this.$router.push("/Home")
-                })
-            }
-        }
+        props:["serie"]
     }
 </script>
 

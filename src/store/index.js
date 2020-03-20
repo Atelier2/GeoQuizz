@@ -11,7 +11,8 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   plugins:[vuexLocal.plugin],
   state: {
-    game:null
+    game:null,
+    progressGame:{"picturesPlaced": 0,"score":0, "pictures": []}
   },
   mutations: {
     saveGame(state,game){
@@ -19,6 +20,13 @@ export default new Vuex.Store({
     },
     resetGame(state){
       state.game = null
+      state.progressGame = {"picturesPlaced": 0,"score":0, "pictures": []}
+    },
+    progressGameLoadPictures(state,pictures){
+      state.progressGame.pictures = pictures
+    },
+    prograssGamePlacePictture(state){
+      state.progressGame.picturesPlaced++;
     }
   },
   actions: {

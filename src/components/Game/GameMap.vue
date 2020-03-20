@@ -12,6 +12,7 @@
 
     export default {
         name: "GameMap",
+        props:["nb_pictures"],
         components: {
             LMap,
             LTileLayer,
@@ -31,7 +32,13 @@
         },
         methods:{
             addMarker(e){
-                new L.marker(e.latlng, { icon : this.icon }).addTo(this.$refs.map.mapObject);
+                if(this.$store.state.progressGame.picturesPlaced < this.nb_pictures){
+                    new L.marker(e.latlng, { icon : this.icon }).addTo(this.$refs.map.mapObject);
+                    this.$store.commit("prograssGamePlacePictture")
+                }
+                else{
+                    this.$root.makeToast("La partie est terminée.");
+                }
             }
         }
     }

@@ -1,7 +1,7 @@
 <template>
     <div class="game">
-                <GameDetails class="gameDetails"></GameDetails>
-                <GameMap></GameMap>
+                <GameDetails class="gameDetails" :serie="serie"></GameDetails>
+                <GameMap :nb_pictures="serie.nb_pictures"></GameMap>
     </div>
 </template>
 
@@ -11,12 +11,31 @@
     export default {
         name: "Game",
         components: {GameDetails, GameMap},
+        data(){
+            return{
+                serie:null
+            }
+        },
         beforeMount() {
             if(this.$store.state.game){
                 //Verifier la valiter du token
+                this.getSerieDetails();
             }
             else{
                 this.$router.push("/Home")
+            }
+        },
+        methods:{
+            getSerieDetails(){
+                this.$axios.get('series/'+ this.$store.state.game.id_series).then((response) => {
+                    this.serie = response.data.series
+                    console.log("Chargement de la série réussie");
+                }).catch((e) => {
+                    console.log("Erreur lors du chargement de la série");
+                    this.$root.makeToast(e.response.data.message);
+                    this.$store.commit("resetGame");
+                    this.$router.push("/Home")
+                })
             }
         }
     }
