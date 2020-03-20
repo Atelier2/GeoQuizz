@@ -25,7 +25,7 @@ export default new Vuex.Store({
     progressGameLoadPictures(state,pictures){
       state.progressGame.pictures = pictures
     },
-    prograssGamePlacePictture(state){
+    progressGamePlacePicture(state){
       state.progressGame.picturesPlaced++;
     }
   },

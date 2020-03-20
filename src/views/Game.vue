@@ -1,5 +1,5 @@
 <template>
-    <div class="game">
+    <div class="game" v-if="serie">
                 <GameDetails class="gameDetails" :serie="serie"></GameDetails>
                 <GameMap :nb_pictures="serie.nb_pictures"></GameMap>
     </div>
@@ -57,6 +57,6 @@
         }
     }
     .gameDetails{
-        flex-basis: 15%;
+        flex-basis: 40%;
     }
 </style>

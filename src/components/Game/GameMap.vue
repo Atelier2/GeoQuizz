@@ -34,7 +34,7 @@
             addMarker(e){
                 if(this.$store.state.progressGame.picturesPlaced < this.nb_pictures){
                     new L.marker(e.latlng, { icon : this.icon }).addTo(this.$refs.map.mapObject);
-                    this.$store.commit("prograssGamePlacePictture")
+                    this.$store.commit("progressGamePlacePicture")
                 }
                 else{
                     this.$root.makeToast("La partie est terminée.");

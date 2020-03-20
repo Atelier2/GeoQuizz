@@ -9,7 +9,21 @@
 <script>
     export default {
         name: "GameDetails",
-        props:["serie"]
+        props:["serie"],
+        beforeMount() {
+            this.getPictures();
+        },
+        methods:{
+          getPictures(){
+                  this.$axios.get('series/' + this.$store.state.game.id_series + "/pictures").then((response) => {
+                      this.$store.commit("progressGameLoadPictures", response.data.pictures)
+                      console.log("Chargement des photos réussie");
+                  }).catch((e) => {
+                      console.log("Erreur lors du chargement des photos");
+                      this.$root.makeToast(e.response.data.message);
+                  })
+          }
+        }
     }
 </script>
 
