@@ -16,6 +16,9 @@ export default new Vuex.Store({
   mutations: {
     saveGame(state,game){
       state.game = game;
+    },
+    resetGame(state){
+      state.game = null
     }
   },
   actions: {
