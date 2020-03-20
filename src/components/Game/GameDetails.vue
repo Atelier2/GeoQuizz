@@ -3,6 +3,9 @@
         <p>Ville: {{ serie.city }}</p>
         <p>Progression :{{ this.$store.state.progressGame.picturesPlaced }} / {{ serie.nb_pictures }}</p>
         <p>Score : {{ this.$store.state.progressGame.score }}</p>
+        <div v-if="this.$store.state.progressGame.picturesPlaced < serie.nb_pictures">
+            <img :src="this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].link"/>
+        </div>
     </div>
 </template>
 
@@ -27,9 +30,14 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .gameDetails{
         background-color: #17a2b8;
         height: 100%;
+        text-align: center;
+        
+        img{
+            max-width: 90%;
+        }
     }
 </style>
