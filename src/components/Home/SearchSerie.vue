@@ -43,7 +43,7 @@
                     "id_series":this.selectedSerie.id
                 }).then((response) => {
                     console.log("Création de la partie réussie");
-                    console.log(response.data)
+                    this.$store.commit("saveGame",response.data.game)
                 }).catch((e) => {
                     console.log("Erreur lors de la création de la partie: "+e.response.data.message)
                     this.$root.makeToast(e.response.data.message)
