@@ -1,10 +1,10 @@
 <template>
-    <div class="gameDetails">
+    <div class="gameDetails" v-if="this.$store.state.progressGame.pictures.length > 0">
         <p>Ville: {{ serie.city }}</p>
-        <p>Progression :{{ this.$store.state.progressGame.picturesPlaced }} / {{ serie.nb_pictures }}</p>
-        <p>Score : {{ this.$store.state.progressGame.score }}</p>
-        <div v-if="this.$store.state.progressGame.picturesPlaced < serie.nb_pictures">
-            <img :src="this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].link"/>
+        <p>Progression :{{ picturesPlaced }} / {{ serie.nb_pictures }}</p>
+        <p>Score : {{ score }}</p>
+        <div v-if="picturesPlaced < serie.nb_pictures">
+            <img :src="picture"/>
         </div>
     </div>
 </template>
@@ -13,8 +13,21 @@
     export default {
         name: "GameDetails",
         props:["serie"],
-        beforeMount() {
-            this.getPictures();
+        mounted() {
+            if(this.$store.state.progressGame.pictures.length === 0){
+                this.getPictures();
+            }
+        },
+        computed:{
+          picturesPlaced:function(){
+              return this.$store.state.progressGame.picturesPlaced
+          },
+            score:function(){
+              return this.$store.state.progressGame.score;
+            },
+            picture:function(){
+              return this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].link;
+            }
         },
         methods:{
           getPictures(){
@@ -35,7 +48,7 @@
         background-color: #17a2b8;
         height: 100%;
         text-align: center;
-        
+
         img{
             max-width: 90%;
         }
