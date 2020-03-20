@@ -44,6 +44,7 @@
                 }).then((response) => {
                     console.log("Création de la partie réussie");
                     this.$store.commit("saveGame",response.data.game)
+                    this.$router.push("Game")
                 }).catch((e) => {
                     console.log("Erreur lors de la création de la partie: "+e.response.data.message)
                     this.$root.makeToast(e.response.data.message)

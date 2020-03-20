@@ -10,7 +10,15 @@
     import GameDetails from "../components/Game/GameDetails";
     export default {
         name: "Game",
-        components: {GameDetails, GameMap}
+        components: {GameDetails, GameMap},
+        beforeMount() {
+            if(this.$store.state.game){
+                //Verifier la valiter du token
+            }
+            else{
+                this.$router.push("/Home")
+            }
+        }
     }
 </script>
 
