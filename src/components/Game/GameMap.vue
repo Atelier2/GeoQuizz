@@ -1,5 +1,5 @@
 <template>
-    <l-map id="map" @click="addMarker" ref="map" :zoom="zoom" :maxZoom="zoom" :minZoom="zoom" :center="center">
+    <l-map id="map" @click="addMarker" ref="map" :zoom="zoom" :center="center">
         <l-tile-layer :url="url"/>
     </l-map>
 </template>
