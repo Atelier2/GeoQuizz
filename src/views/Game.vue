@@ -1,7 +1,7 @@
 <template>
     <div class="game" v-if="serie">
                 <GameDetails class="gameDetails" :serie="serie"></GameDetails>
-                <GameMap :nb_pictures="serie.nb_pictures"></GameMap>
+                <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom"></GameMap>
     </div>
 </template>
 

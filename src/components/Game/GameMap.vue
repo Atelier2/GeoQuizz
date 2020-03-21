@@ -7,12 +7,13 @@
 <script>
     import { latLng } from "leaflet";
     import L from "leaflet"
+    import D from "leaflet-geometryutil"
     import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
     import 'leaflet/dist/leaflet.css';
 
     export default {
         name: "GameMap",
-        props:["nb_pictures"],
+        props:["nb_pictures","zoom"],
         components: {
             LMap,
             LTileLayer,
@@ -21,7 +22,6 @@
         data(){
             return{
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                zoom: 12,
                 center: latLng(47.41322, -1.219482),
                 icon: L.icon({
                     iconUrl: require('leaflet/dist/images/marker-icon.png'),
@@ -42,8 +42,15 @@
                 }
             },
             calculScore(numPicture, posMarker){
+                let lat_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].latitude;
+                let lng_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].longitude;
+                let lat_lng_picture = latLng(lat_picture,lng_picture);
+
+
                 console.log(numPicture,posMarker)
-                L.Geom
+                console.log(lat_lng_picture)
+                let distance = L.GeometryUtil.length([lat_lng_picture,posMarker])
+                console.log(distance)
             }
         }
     }
