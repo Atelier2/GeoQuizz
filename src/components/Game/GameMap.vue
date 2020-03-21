@@ -42,15 +42,15 @@
                 }
             },
             calculScore(numPicture, posMarker){
+                let distance_metters = this.calculDistanceMetters(numPicture, posMarker);
+                console.log(distance_metters);
+            },
+            calculDistanceMetters(numPicture, posMarker){
                 let lat_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].latitude;
                 let lng_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].longitude;
                 let lat_lng_picture = latLng(lat_picture,lng_picture);
 
-
-                console.log(numPicture,posMarker)
-                console.log(lat_lng_picture)
-                let distance = L.GeometryUtil.length([lat_lng_picture,posMarker])
-                console.log(distance)
+                return L.GeometryUtil.length([lat_lng_picture,posMarker])
             }
         }
     }
