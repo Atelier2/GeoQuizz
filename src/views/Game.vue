@@ -1,6 +1,6 @@
 <template>
     <div class="game" v-if="serie">
-                <GameDetails class="gameDetails" :serie="serie"></GameDetails>
+                <GameDetails class="gameDetails" :serie="serie" :chrono="time"></GameDetails>
                 <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom"></GameMap>
     </div>
 </template>
@@ -14,7 +14,13 @@
         components: {GameDetails, GameMap},
         data(){
             return{
-                serie:null
+                serie:null,
+                time: {
+                    minutes: 0,
+                    secondes: 0
+                },
+                totalSecondes: 0,
+                timer:null
             }
         },
         beforeMount() {
@@ -27,6 +33,9 @@
             }
         },
         mounted() {
+            this.$bus.$on('startChrono',() => {
+                this.startChrono();
+            })
             this.$bus.$on('calculScore',(numPicture, posMarker) => {
                 this.calculScore(numPicture, posMarker);
             })
@@ -53,6 +62,22 @@
                 let lat_lng_picture = latLng(lat_picture,lng_picture);
 
                 return L.GeometryUtil.length([lat_lng_picture,posMarker])
+            },
+            startChrono(){
+                this.timer = setInterval(() =>  {
+                    this.time.minutes = Math.floor(++this.totalSecondes / 60);
+                    this.time.secondes = this.totalSecondes - this.time.minutes * 60;
+                }, 1000);
+            },
+            stopChrono(){
+                clearInterval(this.timer);
+            },
+            resetChrono(){
+                chronoReset = function() {
+                    this.totalSecondes = 0;
+                    this.time.minutes = 0;
+                    this.time.secondes = 0;
+                }
             }
         }
     }

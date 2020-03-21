@@ -3,6 +3,8 @@
         <p>Ville: {{ serie.city }}</p>
         <p>Progression :{{ picturesPlaced }} / {{ serie.nb_pictures }}</p>
         <p>Score : {{ score }}</p>
+        <p>Temps : <span v-if="chrono.minutes > 0"> {{ chrono.minutes }} minute(s)</span> {{ chrono.secondes }}</p>
+        <button @click="startChrono">start</button>
         <div v-if="picturesPlaced < serie.nb_pictures">
             <img :src="picture"/>
         </div>
@@ -12,7 +14,7 @@
 <script>
     export default {
         name: "GameDetails",
-        props:["serie"],
+        props:["serie","chrono"],
         mounted() {
             if(this.$store.state.progressGame.pictures.length === 0){
                 this.getPictures();
@@ -38,7 +40,10 @@
                       console.log("Erreur lors du chargement des photos");
                       this.$root.makeToast(e.response.data.message);
                   })
-          }
+          },
+            startChrono(){
+                this.$bus.$emit('startChrono')
+            }
         }
     }
 </script>
