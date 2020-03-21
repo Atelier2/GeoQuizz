@@ -34,23 +34,12 @@
             addMarker(e){
                 if(this.$store.state.progressGame.picturesPlaced < this.nb_pictures){
                     new L.marker(e.latlng, { icon : this.icon }).addTo(this.$refs.map.mapObject);
-                    this.calculScore(this.$store.state.progressGame.picturesPlaced, e.latlng,)
+                    this.$bus.$emit('calculScore', this.$store.state.progressGame.picturesPlaced, e.latlng);
                     this.$store.commit("progressGamePlacePicture")
                 }
                 else{
                     this.$root.makeToast("La partie est terminée.");
                 }
-            },
-            calculScore(numPicture, posMarker){
-                let distance_metters = this.calculDistanceMetters(numPicture, posMarker);
-                console.log(distance_metters);
-            },
-            calculDistanceMetters(numPicture, posMarker){
-                let lat_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].latitude;
-                let lng_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].longitude;
-                let lat_lng_picture = latLng(lat_picture,lng_picture);
-
-                return L.GeometryUtil.length([lat_lng_picture,posMarker])
             }
         }
     }
