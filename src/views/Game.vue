@@ -1,7 +1,8 @@
 <template>
     <div class="game" v-if="serie">
-                <GameDetails class="gameDetails" :serie="serie" :chrono="time"></GameDetails>
-                <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom"></GameMap>
+                <GameDetails class="gameDetails" :serie="serie" :chrono="time" :gameStarted="gameStarted"></GameDetails>
+                <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom" v-show="gameStarted"></GameMap>
+                <start-page v-show="!gameStarted"></start-page>
     </div>
 </template>
 
@@ -9,11 +10,13 @@
     import GameMap from "../components/Game/GameMap";
     import GameDetails from "../components/Game/GameDetails";
     import L, {latLng} from "leaflet";
+    import StartPage from "../components/Game/startPage";
     export default {
         name: "Game",
-        components: {GameDetails, GameMap},
+        components: {StartPage, GameDetails, GameMap},
         data(){
             return{
+                gameStarted:false,
                 serie:null,
                 time: {
                     minutes: 0,
@@ -39,6 +42,9 @@
             this.$bus.$on('calculScore',(numPicture, posMarker) => {
                 this.calculScore(numPicture, posMarker);
             })
+            this.$bus.$on('startGame',() => {
+                this.startGame()
+            })
         },
         methods:{
             getSerieDetails(){
@@ -47,6 +53,22 @@
                     console.log("Chargement de la série réussie");
                 }).catch((e) => {
                     console.log("Erreur lors du chargement de la série");
+                    this.$root.makeToast(e.response.data.message);
+                    this.$store.commit("resetGame");
+                    this.$router.push("/Home")
+                })
+            },
+            startGame(){
+                this.$axios.put('games/'+ this.$store.state.game.id,{
+                    "id_status":1
+                },{
+                    headers: {Authorization: 'Bearer ' + this.$store.state.game.token}
+                }).then((response) => {
+                    console.log("Démarrage de la partie réussie")
+                    this.gameStarted = true;
+                    this.startChrono();
+                }).catch((e) => {
+                    console.log("Erreur lors du démarrage de la partie");
                     this.$root.makeToast(e.response.data.message);
                     this.$store.commit("resetGame");
                     this.$router.push("/Home")

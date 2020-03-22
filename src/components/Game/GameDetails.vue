@@ -4,8 +4,7 @@
         <p>Progression :{{ picturesPlaced }} / {{ serie.nb_pictures }}</p>
         <p>Score : {{ score }}</p>
         <p>Temps : <span v-if="chrono.minutes > 0"> {{ chrono.minutes }} minute(s)</span> {{ chrono.secondes }}</p>
-        <button @click="startChrono">start</button>
-        <div v-if="picturesPlaced < serie.nb_pictures">
+        <div v-if="picturesPlaced < serie.nb_pictures && gameStarted">
             <img :src="picture"/>
         </div>
     </div>
@@ -14,7 +13,7 @@
 <script>
     export default {
         name: "GameDetails",
-        props:["serie","chrono"],
+        props:["serie","chrono","gameStarted"],
         mounted() {
             if(this.$store.state.progressGame.pictures.length === 0){
                 this.getPictures();
