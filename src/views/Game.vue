@@ -3,6 +3,7 @@
                 <GameDetails class="gameDetails" :serie="serie" :chrono="time" :gameStarted="gameStarted"></GameDetails>
                 <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom" v-show="gameStarted === 1"></GameMap>
                 <start-page v-show="gameStarted === 0"></start-page>
+                <end-page v-show="gameStarted === 2"></end-page>
     </div>
 </template>
 
@@ -11,9 +12,10 @@
     import GameDetails from "../components/Game/GameDetails";
     import L, {latLng} from "leaflet";
     import StartPage from "../components/Game/startPage";
+    import EndPage from "../components/Game/endPage";
     export default {
         name: "Game",
-        components: {StartPage, GameDetails, GameMap},
+        components: {EndPage, StartPage, GameDetails, GameMap},
         data(){
             return{
                 // 0 non commencé 1 démarrer 2 fini
@@ -47,6 +49,7 @@
             this.$bus.$on('stopGame',() => {
                 this.gameStarted = 2
                 this.stopChrono()
+                this.stopGame()
             })
         },
         methods:{
@@ -77,10 +80,18 @@
                     this.$router.push("/Home")
                 })
             },
+            stopGame(){
+                this.$axios.put('games/'+ this.$store.state.game.id,{
+                    "id_status":2
+                },{
+                    headers: {Authorization: 'Bearer ' + this.$store.state.game.token}
+                }).then((response) => {
+                    console.log("Fin de la partie enregistré")
+                })
+            },
             calculScore(numPicture, posMarker){
                 let distance_metters = this.calculDistanceMetters(numPicture, posMarker);
                 let score = 0;
-                console.log(distance_metters)
 
                 if(distance_metters < this.serie.distance){
                     score =  5;
@@ -92,7 +103,6 @@
                     score = 1;
                 }
 
-                console.log(score)
                 if(this.time.secondes < 5){
                     score = score * 4;
                 }
