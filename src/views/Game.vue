@@ -1,8 +1,8 @@
 <template>
     <div class="game" v-if="serie">
                 <GameDetails class="gameDetails" :serie="serie" :chrono="time" :gameStarted="gameStarted"></GameDetails>
-                <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom" v-show="gameStarted"></GameMap>
-                <start-page v-show="!gameStarted"></start-page>
+                <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom" v-show="gameStarted === 1"></GameMap>
+                <start-page v-show="gameStarted === 0"></start-page>
     </div>
 </template>
 
@@ -16,7 +16,8 @@
         components: {StartPage, GameDetails, GameMap},
         data(){
             return{
-                gameStarted:false,
+                // 0 non commencé 1 démarrer 2 fini
+                gameStarted:0,
                 serie:null,
                 time: {
                     minutes: 0,
@@ -36,14 +37,16 @@
             }
         },
         mounted() {
-            this.$bus.$on('startChrono',() => {
-                this.startChrono();
-            })
             this.$bus.$on('calculScore',(numPicture, posMarker) => {
+                this.resetChrono();
                 this.calculScore(numPicture, posMarker);
             })
             this.$bus.$on('startGame',() => {
                 this.startGame()
+            })
+            this.$bus.$on('stopGame',() => {
+                this.gameStarted = 2
+                this.stopChrono()
             })
         },
         methods:{
@@ -65,7 +68,7 @@
                     headers: {Authorization: 'Bearer ' + this.$store.state.game.token}
                 }).then((response) => {
                     console.log("Démarrage de la partie réussie")
-                    this.gameStarted = true;
+                    this.gameStarted = 1;
                     this.startChrono();
                 }).catch((e) => {
                     console.log("Erreur lors du démarrage de la partie");
@@ -95,11 +98,10 @@
                 clearInterval(this.timer);
             },
             resetChrono(){
-                chronoReset = function() {
                     this.totalSecondes = 0;
                     this.time.minutes = 0;
                     this.time.secondes = 0;
-                }
+
             }
         }
     }

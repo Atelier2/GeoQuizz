@@ -4,7 +4,7 @@
         <p>Progression :{{ picturesPlaced }} / {{ serie.nb_pictures }}</p>
         <p>Score : {{ score }}</p>
         <p>Temps : <span v-if="chrono.minutes > 0"> {{ chrono.minutes }} minute(s)</span> {{ chrono.secondes }}</p>
-        <div v-if="picturesPlaced < serie.nb_pictures && gameStarted">
+        <div v-if="picturesPlaced < serie.nb_pictures && gameStarted === 1">
             <img :src="picture"/>
         </div>
     </div>
@@ -39,10 +39,7 @@
                       console.log("Erreur lors du chargement des photos");
                       this.$root.makeToast(e.response.data.message);
                   })
-          },
-            startChrono(){
-                this.$bus.$emit('startChrono')
-            }
+          }
         }
     }
 </script>

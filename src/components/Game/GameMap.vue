@@ -36,6 +36,9 @@
                     new L.marker(e.latlng, { icon : this.icon }).addTo(this.$refs.map.mapObject);
                     this.$bus.$emit('calculScore', this.$store.state.progressGame.picturesPlaced, e.latlng);
                     this.$store.commit("progressGamePlacePicture")
+                    if(this.$store.state.progressGame.picturesPlaced === this.nb_pictures){
+                        this.$bus.$emit("stopGame");
+                    }
                 }
                 else{
                     this.$root.makeToast("La partie est terminée.");
