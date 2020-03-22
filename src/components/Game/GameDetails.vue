@@ -3,7 +3,7 @@
         <p>Ville: {{ serie.city }}</p>
         <p>Progression :{{ picturesPlaced }} / {{ serie.nb_pictures }}</p>
         <p>Score : {{ score }}</p>
-        <p>Temps : <span v-if="chrono.minutes > 0"> {{ chrono.minutes }} minute(s)</span> {{ chrono.secondes }}</p>
+        <p v-if="gameStarted === 1">Temps : <span v-if="chrono.minutes > 0"> {{ chrono.minutes }} minute(s)</span> {{ chrono.secondes }}</p>
         <div v-if="picturesPlaced < serie.nb_pictures && gameStarted === 1">
             <img :src="picture"/>
         </div>
