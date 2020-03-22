@@ -31,7 +31,19 @@
         },
         beforeMount() {
             if(this.$store.state.game){
-                //Verifier la valiter du token
+                this.$axios.get('games/'+ this.$store.state.game.id,{
+                    headers: {Authorization: 'Bearer ' + this.$store.state.game.token}}).then((response) => {
+                    if(response.data.game.id_status !== 0){
+                        console.log("Game invalide (déjà commencée)");
+                        this.$store.commit("resetGame");
+                        this.$router.push("/Home")
+                    }
+                }).catch((e) => {
+                    console.log("Game invalide (probablement token)");
+                    this.$root.makeToast(e.response.data.message);
+                    this.$store.commit("resetGame");
+                    this.$router.push("/Home")
+                })
                 this.getSerieDetails();
             }
             else{
