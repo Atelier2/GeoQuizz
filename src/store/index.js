@@ -27,6 +27,9 @@ export default new Vuex.Store({
     },
     progressGamePlacePicture(state){
       state.progressGame.picturesPlaced++;
+    },
+    setScore(state,score){
+      state.progressGame.score = score
     }
   },
   actions: {

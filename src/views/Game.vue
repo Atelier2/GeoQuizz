@@ -79,7 +79,32 @@
             },
             calculScore(numPicture, posMarker){
                 let distance_metters = this.calculDistanceMetters(numPicture, posMarker);
-                console.log(distance_metters);
+                let score = 0;
+                console.log(distance_metters)
+
+                if(distance_metters < this.serie.distance){
+                    score =  5;
+                }
+                if(distance_metters > this.serie.distance && distance_metters < 2 * this.serie.distance){
+                    score = 3;
+                }
+                if(distance_metters > this.serie.distance * 2 && distance_metters < 3 * this.serie.distance){
+                    score = 1;
+                }
+
+                console.log(score)
+                if(this.time.secondes < 5){
+                    score = score * 4;
+                }
+                if(this.time.secondes > 5 && this.timer.secondes < 10){
+                    score = score * 2;
+                }
+                if(this.timer.secondes > 20){
+                    score = 0;
+                }
+
+                score = this.$store.state.progressGame.score + score
+                this.$store.commit("setScore",score)
             },
             calculDistanceMetters(numPicture, posMarker){
                 let lat_picture = this.$store.state.progressGame.pictures[this.$store.state.progressGame.picturesPlaced].latitude;
