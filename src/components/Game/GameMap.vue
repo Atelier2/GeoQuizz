@@ -1,5 +1,5 @@
 <template>
-    <l-map id="map" @click="addMarker" ref="map" :zoom="zoom" :center="center">
+    <l-map id="map" @click="addMarker" ref="map" :zoom="serie.zoom" :center="center">
         <l-tile-layer :url="url"/>
     </l-map>
 </template>
@@ -13,7 +13,7 @@
 
     export default {
         name: "GameMap",
-        props:["nb_pictures","zoom"],
+        props:["serie"],
         components: {
             LMap,
             LTileLayer,
@@ -22,7 +22,7 @@
         data(){
             return{
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                center: latLng(47.41322, -1.219482),
+                center: latLng(this.serie.latitude, this.serie.longitude),
                 icon: L.icon({
                     iconUrl: require('leaflet/dist/images/marker-icon.png'),
                     shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
@@ -32,11 +32,11 @@
         },
         methods:{
             addMarker(e){
-                if(this.$store.state.progressGame.picturesPlaced < this.nb_pictures){
+                if(this.$store.state.progressGame.picturesPlaced < this.serie.nb_pictures){
                     new L.marker(e.latlng, { icon : this.icon }).addTo(this.$refs.map.mapObject);
                     this.$bus.$emit('calculScore', this.$store.state.progressGame.picturesPlaced, e.latlng);
                     this.$store.commit("progressGamePlacePicture")
-                    if(this.$store.state.progressGame.picturesPlaced === this.nb_pictures){
+                    if(this.$store.state.progressGame.picturesPlaced === this.serie.nb_pictures){
                         this.$bus.$emit("stopGame");
                     }
                 }

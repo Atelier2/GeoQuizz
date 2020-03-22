@@ -1,7 +1,7 @@
 <template>
     <div class="game" v-if="serie">
                 <GameDetails class="gameDetails" :serie="serie" :chrono="time" :gameStarted="gameStarted"></GameDetails>
-                <GameMap :nb_pictures="serie.nb_pictures" :zoom="serie.zoom" v-show="gameStarted === 1"></GameMap>
+                <GameMap :serie="serie" v-show="gameStarted === 1"></GameMap>
                 <start-page v-show="gameStarted === 0"></start-page>
                 <end-page v-show="gameStarted === 2"></end-page>
     </div>
