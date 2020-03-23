@@ -17,6 +17,7 @@
 <script>
 
     import SearchSerie from "../components/Home/SearchSerie";
+
     export default {
         name: 'Home',
         components: {SearchSerie},

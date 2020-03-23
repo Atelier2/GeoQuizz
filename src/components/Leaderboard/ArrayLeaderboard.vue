@@ -17,8 +17,8 @@
             </tbody>
         </table>
         <div>
-            <b-btn v-if="prevPage" :to="prevPage" @click="getLeaderboard($route.query.page,$route.query.size)">Précédent</b-btn>
-            <b-btn v-if="nextPage" :to="nextPage" @click="getLeaderboard($route.query.page,$route.query.size)">Suivant</b-btn>
+            <b-btn :to="prevPage" @click="getLeaderboard($route.query.page,$route.query.size)" v-if="prevPage">Précédent</b-btn>
+            <b-btn :to="nextPage" @click="getLeaderboard($route.query.page,$route.query.size)" v-if="nextPage">Suivant</b-btn>
         </div>
     </div>
 </template>
@@ -78,7 +78,7 @@
     }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
     .btn{
         background-color: #17a2b8;
         margin: 1em;
