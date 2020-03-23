@@ -50,8 +50,19 @@
         height: 100%;
         text-align: center;
 
+        @media (max-width: 991.98px) {
+            img{
+                max-width:50%;
+            }
+        }
+        @media (min-width: 991.98px) {
+            img{
+                max-width:90%;
+            }
+        }
         img{
-            max-width: 90%;
+            margin-bottom: 1em;
         }
     }
+
 </style>
