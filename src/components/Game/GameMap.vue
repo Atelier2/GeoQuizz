@@ -21,6 +21,20 @@
         },
         data(){
             return{
+                loopLoadMap:null,
+            }
+        },
+        mounted() {
+            this.loopLoadMap = setInterval( () => {
+                this.$refs.map.mapObject.invalidateSize();
+            }, 100);
+        },
+        beforeDestroy() {
+            clearInterval(this.loopLoadMap)
+            this.$bus.$off();
+        },
+        data(){
+            return{
                 url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 center: latLng(this.serie.latitude, this.serie.longitude),
                 icon: L.icon({
