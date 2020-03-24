@@ -15,6 +15,9 @@
                 series:[]
             }
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         mounted() {
             this.$axios.get('series', ).then((response) => {
                 this.series = response.data.series

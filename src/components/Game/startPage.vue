@@ -14,6 +14,9 @@
             startGame(){
                 this.$bus.$emit("startGame");
             }
+        },
+        beforeDestroy() {
+            this.$bus.$off();
         }
     }
 </script>

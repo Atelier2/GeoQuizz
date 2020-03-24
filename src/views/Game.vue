@@ -50,6 +50,9 @@
                 this.$router.push("/Home")
             }
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         mounted() {
             this.$bus.$on('calculScore',(numPicture, posMarker) => {
                 this.resetChrono();

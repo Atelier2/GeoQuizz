@@ -31,6 +31,9 @@
                 step:1
             }
         },
+        beforeDestroy() {
+            this.$bus.$off();
+        },
         mounted() {
             this.$bus.$on('selectedSerieChange',(serie) => {
                 this.selectedSerie = serie;
