@@ -7,7 +7,7 @@
         <div v-if="picturesPlaced < serie.nb_pictures && gameStarted === 1">
             <img :src="picture"/>
         </div>
-        <button @click="leaveGame" class="btn btn-danger" type="button">Quitter la game</button>
+        <button @click="leaveGame" class="btn btn-danger" type="button" v-if="gameStarted != 2">Quitter la game</button>
     </div>
 </template>
 

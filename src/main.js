@@ -11,7 +11,7 @@ Vue.prototype.$bus = new Vue()
 Vue.config.productionTip = false
 
 Vue.prototype.$axios = axios.create({
-  baseURL: 'http://api.player.local:19180'
+  baseURL: 'http://51.91.8.97:18180'
 })
 
 new Vue({
